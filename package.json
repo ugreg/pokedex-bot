@@ -1,0 +1,23 @@
+{
+  "name": "pokedexbot",
+  "version": "1.0.0",
+  "description": "Gotta catch 'em all!",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gregdegruy/PokedexBot.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gregdegruy/PokedexBot/issues"
+  },
+  "homepage": "https://github.com/gregdegruy/PokedexBot#readme",
+  "dependencies": {
+    "botbuilder": "^3.2.3",
+    "restify": "^4.1.1"
+  }
+}
