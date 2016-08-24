@@ -1,4 +1,4 @@
-# PokeBot
+# PokedexBot
 Gotta catch 'em all!
 
 Doing some discovery work on Microsoft Bot Framework using Node.JS
