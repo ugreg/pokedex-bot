@@ -1,5 +1,7 @@
-var restify = require('restify');
-var builder = require('botbuilder');
+var restify = require("restify");
+var builder = require("botbuilder");
+var pokeapi = "http://pokeapi.co/api/v2/"
+var pkmnOfficialArtwork = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other-sprites/official-artwork/";
 
 //=========================================================
 // Bot Setup
@@ -25,19 +27,32 @@ server.post('/api/messages', connector.listen());
 
 bot.dialog('/', [
     function (session) {
-        builder.Prompts.text(session, 'Welcome to Pokedex bot! Give me a Pokemon number.');
+        session.beginDialog("/welcome");
     },
     function (session, results) {
-        session.send('Looking up Pokemon number %s ', results.response);
-    },
-    function (session) {
-
+        session.send("Looking up Pokemon number %s ", results.response);
     }
 ]);
 
-function loopupPokemon(number) {
-    var callURL = "http://pokeapi.co/api/v2/pokemon" + number + "/";
+bot.dialog("/welcome", [
+    function (session) {
+        var card = new builder.HeroCard(session)
+            .title("Pokedex")
+            .text("Explor the Pokemon world")
+            .images([
+                 builder.CardImage.create(session, pkmnOfficialArtwork + "351.png")
+            ]);
+        var msg = new builder.Message(session).attachments([card]);
+        session.send(msg);
+        session.send("Hello, there! Glad to meet you! Welcome to the world of Pokemon");
+        builder.Prompts.text(session, "Give me a Pokemon number.");
+    }
+]);
 
+function lookupPkmn(number) {
+    var callURL = pokeapi + "pokemon" + number + "/";
+
+    var xhr = new XMLHttpRequest();
     xhr.open("GET", callURL, true);
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4) {
