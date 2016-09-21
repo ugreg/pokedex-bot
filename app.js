@@ -30,15 +30,24 @@ bot.dialog('/', [
         session.beginDialog("/welcome");
     },
     function (session, results) {
-        session.send("Looking up Pokemon number %s ", results.response);
+        session.send("Looking up Pokemon number %s ...", results.response);
+        var card = new builder.HeroCard(session)
+            .images([
+                 builder.CardImage.create(session, pkmnOfficialArtwork + results.response + ".png")
+            ]);
+        var msg = new builder.Message(session).attachments([card]);
+        session.send(msg);
+    },
+    function (session) {
+
     }
 ]);
 
 bot.dialog("/welcome", [
     function (session) {
         var card = new builder.HeroCard(session)
-            .title("Pokedex")
-            .text("Explor the Pokemon world")
+            .title("Pokedex Bot")
+            .text("Explore the Pokemon World")
             .images([
                  builder.CardImage.create(session, pkmnOfficialArtwork + "351.png")
             ]);
