@@ -35,7 +35,7 @@ bot.dialog("/", [
     },
     function (session, results) {
         session.send("Let\'s see what I can find on this pokemon . . .");
-        var name = lookupPkmn(121);
+        var name = lookupPkmn(results.response);
         session.send("Oh, it\s %s !", name);
         var card = new builder.HeroCard(session)
             .title(name)
@@ -85,9 +85,15 @@ function lookupPkmn(number) {
     request(options, function (error, response, body) {
         if (!error && response.statusCode == 200) {
             x = JSON.parse(body);
-            console.log(x);
+            console.log(x.name);
+
+            // var multiType = x.types.length > 1 ? true : false;
+            // var type = x.types[0].type.name;
+
+            // var name = x.name;
+            var gh = JSON.stringify(x.name);
+            return gh;
+
         }
     });
-
-    return x.forms[0].name;
 }
